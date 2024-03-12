@@ -72,4 +72,39 @@ class PostsController extends Controller
             ],404);
         }
     }
+
+
+    public function update(Request $request,$id)
+    {
+        $validator = Validator::make($request->all(),[
+            'title' => 'required',
+            'content'   => 'required'
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'success'   => false,
+                'message'   => 'semua kolom wajib diisi',
+                'data'      => $validator->errors()
+            ],401);
+        }else{
+            $post = PostModel::whereId($id)->update([
+                'title'     => $request->input('title'),
+                'content'   => $request->input('content')
+            ]);
+
+            if($post){
+                return response()->json([
+                    'success'   => true,
+                    'message'   => 'Post berhasil di update',
+                    'data'      => $post
+                ],201);
+            }else{
+                return response()->json([
+                    'success'   => false,
+                    'message'   => 'post gagal diupdate',
+                ],400);
+            }
+        }
+    }
 }
