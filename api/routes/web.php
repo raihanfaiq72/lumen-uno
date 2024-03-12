@@ -18,3 +18,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/posts', 'PostsController@index');
+$router->get('/posts/{id}', 'PostsController@show');
+$router->post('/posts', 'PostsController@store');
