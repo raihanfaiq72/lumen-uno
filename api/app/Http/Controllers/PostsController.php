@@ -112,6 +112,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = PostModel::whereId($id)->first();
+        $post->delete();
 
         if($post){
             return response()->json([
