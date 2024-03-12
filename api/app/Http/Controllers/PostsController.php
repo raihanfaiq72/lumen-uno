@@ -107,4 +107,17 @@ class PostsController extends Controller
             }
         }
     }
+
+
+    public function destroy($id)
+    {
+        $post = PostModel::whereId($id)->first();
+
+        if($post){
+            return response()->json([
+                'success'   => true,
+                'message'   => 'post berhasil dihapus'
+            ],200);
+        }
+    }
 }
